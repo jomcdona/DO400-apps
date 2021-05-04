@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
+                options { timeout(time: 50, unit: 'SECONDS') }
                 dir('shopping-cart-v2') {
                     sh './mvnw clean test'
                 }
