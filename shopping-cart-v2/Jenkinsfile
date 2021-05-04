@@ -3,8 +3,8 @@ pipeline {
     environment { APP_NAMESPACE = 'jomcdona-recover' }
     stages {
         stage('Test') {
+            options { timeout: 50, unit: 'SECONDS') }
             steps {
-                options { timeout(time: 50, unit: 'SECONDS') }
                 dir('shopping-cart-v2') {
                     sh './mvnw clean test'
                 }
