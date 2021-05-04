@@ -28,8 +28,6 @@ pipeline {
        always {
            sendNotification('finished', 'team@example.com')
        }
-    }
-    post {
        failure {
            sendFailurAlert('team@example.com')
        }
