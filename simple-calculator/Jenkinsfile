@@ -16,10 +16,22 @@ pipeline {
                 }
             }
         }
+        stage('Check Style') {
+            steps {
+                dir('simple-calculator') {
+                    sh './mvnw clean checkstyle:check'
+                }
+            }
+        }
     }
     post {
        always {
            sendNotification('finished', 'team@example.com')
+       }
+    }
+    post {
+       failure {
+           sendFailurAlert('team@example.com')
        }
     }
 }
@@ -28,4 +40,10 @@ void sendNotification(String action, String email) {
     mail to: "${email}",
         subject: "Pipeline ${action}: ${currentBuild.fullDisplayName}",
         body: "The following pipeline ${action}: $env.BUILD_URL}"
+}
+
+void sendFailureAlert(String email) {
+    mail to: "${email}",
+        subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
+        body: "The following pipeline failed: ${env.BUILD_URL}"
 }
