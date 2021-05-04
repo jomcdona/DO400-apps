@@ -29,7 +29,7 @@ pipeline {
            sendNotification('finished', 'team@example.com')
        }
        failure {
-           sendFailurAlert('team@example.com')
+           sendFailureAlert('team@example.com')
        }
     }
 }
